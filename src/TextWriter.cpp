@@ -57,7 +57,7 @@ TextWriter::TextWriter(int in_x, int in_y, Renderer &in_renderer,
       delete font_desc;
       font_desc = NULL;
       // Get font from user settings
-      const std::string userfontname = UserSetting::Get("font_desc", "");
+      const std::string userfontname = UserSetting::Get("font-desc", "");
       if (!userfontname.empty()) {
         font_desc = new Pango::FontDescription(STRING(userfontname << " " << in_size));
         ret = Gdk::GL::Font::use_pango_font(*font_desc, 0, 128, list_start);

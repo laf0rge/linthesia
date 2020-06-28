@@ -25,7 +25,7 @@
 
 #include "libmidi/Midi.h"
 #include "libmidi/MidiUtil.h"
-#include <gconfmm.h>
+#include <giomm/settings.h>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -443,7 +443,7 @@ int main(int argc, char *argv[]) {
     
     /* Loading the Sqlite Library
     */
-    string tmp_user_db_str = UserSetting::Get("sqlite_db", "");
+    string tmp_user_db_str = UserSetting::Get("sqlite-db", "");
 
     if (tmp_user_db_str. empty() ) {
         // no user pref : let's create one !
@@ -456,7 +456,7 @@ int main(int argc, char *argv[]) {
           exit(1);
         }
         sqlite_db_str = strcat(sqlite_db_str, "/music.sqlite");
-        UserSetting::Set("sqlite_db", sqlite_db_str);
+        UserSetting::Set("sqlite-db", sqlite_db_str);
     } else {
         // user pref exist : let's use it !
         sqlite_db_str = (char*) tmp_user_db_str.c_str();
@@ -535,38 +535,38 @@ int main(int argc, char *argv[]) {
     // get refresh rate from user settings
     int default_rate = 30;
 
-    string user_rate = UserSetting::Get("refresh_rate", "");
+    string user_rate = UserSetting::Get("refresh-rate", "");
 
     if (! user_rate.empty() && std::stoi(user_rate) > default_rate) {
-      fprintf (stdout, "WARNING :: Your refresh_rate is set to %d. I recommand using %d.\n", std::stoi(user_rate), default_rate);
-      fprintf (stdout, "           You may update it using gconf-2.\n");
+      fprintf (stdout, "WARNING :: Your refresh-rate is set to %d. I recommand using %d.\n", std::stoi(user_rate), default_rate);
+      fprintf (stdout, "           You may update it using gsettings.\n");
     }
 
     if (user_rate.empty()) {
       user_rate = STRING(default_rate);
-      UserSetting::Set("refresh_rate", user_rate);
+      UserSetting::Set("refresh-rate", user_rate);
     }
     else {
       istringstream iss(user_rate);
       if (not (iss >> default_rate)) {
-        Compatible::ShowError("Invalid setting for 'refresh_rate' key.\n\nReset to default value when reload.");
-        UserSetting::Set("refresh_rate", "");
+        Compatible::ShowError("Invalid setting for 'refresh-rate' key.\n\nReset to default value when reload.");
+        UserSetting::Set("refresh-rate", "");
       }
     }
 
     Glib::signal_timeout().connect(sigc::mem_fun(da, &DrawingArea::GameLoop), 1000/std::stoi(user_rate));
 
-    UserSetting::Set("min_key", "");
-    UserSetting::Set("max_key", "");
+    UserSetting::Set("min-key", "");
+    UserSetting::Set("max-key", "");
 
     if (cmdOptionExists(argv, argv+argc, "--min-key")) {
       string min_key = STRING(getCmdOption(argv, argv + argc, "--min-key"));
-      UserSetting::Set("min_key", min_key);
+      UserSetting::Set("min-key", min_key);
     }
 
     if (cmdOptionExists(argv, argv+argc, "--max-key")) {
       string max_key = STRING(getCmdOption(argv, argv + argc, "--max-key"));
-      UserSetting::Set("max_key", max_key);
+      UserSetting::Set("max-key", max_key);
     }
 
 
@@ -595,6 +595,7 @@ int main(int argc, char *argv[]) {
     Compatible::ShowError(wrapped_description);
   }
 
+#if 0
   catch (const Gnome::Conf::Error& e) {
     string wrapped_description = STRING(error_header1 <<
                                         " Gnome::Conf::Error" <<
@@ -603,6 +604,7 @@ int main(int argc, char *argv[]) {
                                         error_footer);
     Compatible::ShowError(wrapped_description);
   }
+#endif
 
   catch (const exception &e) {
     string wrapped_description = STRING("Linthesia detected an unknown "

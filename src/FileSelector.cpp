@@ -25,7 +25,7 @@ namespace FileSelector {
 
     // Grab the filename of the last song we played
     // and pre-load it into the open dialog
-    string last_filename = UserSetting::Get("last_file", "");
+    string last_filename = UserSetting::Get("last-file", "");
 
     Gtk::FileChooserDialog dialog("Linthesia: Choose a MIDI song to play");
     dialog.add_button(Gtk::StockID("gtk-open"), Gtk::RESPONSE_ACCEPT);
@@ -37,7 +37,7 @@ namespace FileSelector {
 
     // If there wasn't a last file, default to the built-in Music directory
     else {
-      string default_dir = UserSetting::Get("default_music_directory", "");
+      string default_dir = UserSetting::Get("default-music-directory", "");
       dialog.set_current_folder(default_dir);
     }
 
@@ -77,7 +77,7 @@ namespace FileSelector {
   }
 
   void SetLastMidiFilename(const string &filename) {
-    UserSetting::Set("last_file", filename);
+    UserSetting::Set("last-file", filename);
   }
 
   string TrimFilename(const string &filename) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<schemalist>
+
+  <schema path="/org/example/linthesia/" id="org.example.linthesia">
+
+    <key name='last-file' type='s'>
+      <default>""</default>
+      <summary>Last used file</summary>
+      <description>
+        The last file that you used within the program.
+      </description>
+    </key>
+
+    <key name='default-music-directory' type='s'>
+      <default>""</default>
+      <summary>Default Music Directory</summary>
+      <description>
+        The default directory from where to load your music MIDI files.
+      </description>
+    </key>
+
+    <key name='min-key' type='s'>
+      <default>""</default>
+      <summary>Minimal Playable Note</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='max-key' type='s'>
+      <default>""</default>
+      <summary>Maximum Playable Note</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='song-lib-path' type='s'>
+      <default>""</default>
+      <summary>Default Music Directory</summary>
+      <description>
+        The default directory from where to load your music MIDI files.
+      </description>
+    </key>
+
+    <key name='song-lib-last-dir' type='s'>
+      <default>""</default>
+      <summary>FIXME</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='font-desc' type='s'>
+      <default>""</default>
+      <summary>User Font Name</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='last-output-device' type='s'>
+      <default>""</default>
+      <summary>Last used MIDI output device</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='last-input-device' type='s'>
+      <default>""</default>
+      <summary>Last used MIDI input device</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='sqlite-db' type='s'>
+      <default>""</default>
+      <summary>FIXME</summary>
+      <description>
+      </description>
+    </key>
+
+    <key name='refresh-rate' type='s'>
+      <default>"30"</default>
+      <summary>FIXME</summary>
+      <description>
+      </description>
+    </key>
+
+  </schema>
+
+</schemalist>
+

@@ -218,3 +218,6 @@ ctags-dependencies:
 
 .PHONY:ctags-dependencies
 
+gsettings_SCHEMAS = org.example.linthesia.gschema.xml
+
+@GSETTINGS_RULES@

@@ -4,9 +4,10 @@
 
 // Copyright (c) 2007 Nicholas Piegdon
 // Adaptation to GNU/Linux by Oscar Aceña
+// Adaptation from gconfmm to GSettings by Harald Welte
 // See COPYING for license information
 
-#include <gconfmm.h>
+#include <giomm/settings.h>
 
 #include "StringUtil.h"
 
@@ -14,37 +15,33 @@ using namespace std;
 
 namespace UserSetting {
 
-  static bool g_initialized(false);
-  static string g_app_name("");
-  static Glib::RefPtr<Gnome::Conf::Client> gconf;
+  static Glib::RefPtr<Gio::Settings> m_settings;
 
   void Initialize(const string &app_name) {
-    if (g_initialized) 
+    if (m_settings)
       return;
 
-    Gnome::Conf::init(); 
-
-    gconf = Gnome::Conf::Client::get_default_client();
-    g_app_name = "/apps/" + app_name;
-    g_initialized = true;
+    m_settings = Gio::Settings::create("org.example.linthesia");
+    if (!m_settings)
+      return;
   }
 
   string Get(const string &setting, const string &default_value) {
-    if (!g_initialized) 
+    if (!m_settings)
       return default_value;
 
-    string result = gconf->get_string(g_app_name + "/" + setting);
+    string result = m_settings->get_string(setting);
     if (result.empty())
       return default_value;
-    
+
     return result;
   }
-    
+
   void Set(const string &setting, const string &value) {
-    if (!g_initialized) 
+    if (!m_settings)
       return;
 
-    gconf->set(g_app_name + "/" + setting, value);
+    m_settings->set_string(setting, value);
   }
 
 }; // End namespace

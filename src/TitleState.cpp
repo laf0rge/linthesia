@@ -26,10 +26,10 @@
 
 using namespace std;
 
-const static string OutputDeviceKey = "last_output_device";
+const static string OutputDeviceKey = "last-output-device";
 const static string OutputKeySpecialDisabled = "[no output device]";
 
-const static string InputDeviceKey = "last_input_device";
+const static string InputDeviceKey = "last-input-device";
 const static string InputKeySpecialDisabled = "[no input device]";
 
 TitleState::~TitleState() {
